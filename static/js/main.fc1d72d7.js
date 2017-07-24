@@ -8980,46 +8980,28 @@ var _user$project$Main$waterTransfer = F2(
 	});
 var _user$project$Main$tickCol = F3(
 	function (col, left, right) {
+		var fromRight = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_) {
+					return _.vl;
+				},
+				right));
+		var fromLeft = A2(
+			_elm_lang$core$Maybe$withDefault,
+			0,
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_) {
+					return _.vr;
+				},
+				left));
 		var vTransfer = 0.2;
 		var col_ = _elm_lang$core$Native_Utils.update(
 			col,
-			{
-				vl: (col.vl * (1 - vTransfer)) + (A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_) {
-							return _.vl;
-						},
-						right)) * vTransfer),
-				vr: (col.vr * (1 - vTransfer)) + (A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_) {
-							return _.vr;
-						},
-						left)) * vTransfer),
-				water: (((col.water + (A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_) {
-							return _.vr;
-						},
-						left)) * vTransfer)) + (A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					A2(
-						_elm_lang$core$Maybe$map,
-						function (_) {
-							return _.vl;
-						},
-						right)) * vTransfer)) - (col.vl * vTransfer)) - (col.vr * vTransfer)
-			});
+			{vl: (col.vl * (1 - vTransfer)) + (fromRight * vTransfer), vr: (col.vr * (1 - vTransfer)) + (fromLeft * vTransfer), water: (((col.water + (fromLeft * vTransfer)) + (fromRight * vTransfer)) - (col.vl * vTransfer)) - (col.vr * vTransfer)});
 		var transfer = function () {
 			var _p0 = {ctor: '_Tuple2', _0: left, _1: right};
 			if (_p0._0.ctor === 'Just') {
@@ -9076,14 +9058,16 @@ var _user$project$Main$newCol = F2(
 			return _elm_lang$core$Native_Utils.update(
 				col,
 				{
-					vl: _user$project$Main$height(col) * 1.0e-3,
-					vr: _user$project$Main$height(col) * 1.0e-3
+					vl: _user$project$Main$height(col) * 0.4,
+					vr: _user$project$Main$height(col) * 0.4
 				});
 		}(
 			{
-				earth: ((_elm_lang$core$Basics$sin(
-					_elm_lang$core$Basics$toFloat(i) / 3) + 1.5) * 20) + ((_elm_lang$core$Basics$sin(
-					_elm_lang$core$Basics$toFloat(i) + 0.67) + 1.5) * 5),
+				earth: (((((_elm_lang$core$Basics$sin(
+					_elm_lang$core$Basics$toFloat(i) / 12) + 1) * 10) + ((_elm_lang$core$Basics$sin(
+					_elm_lang$core$Basics$toFloat(i) / 3) + 1.5) * 10)) + ((_elm_lang$core$Basics$sin(
+					_elm_lang$core$Basics$toFloat(i) + 0.67) + 1) * 2)) + (_elm_lang$core$Basics$sin(
+					_elm_lang$core$Basics$toFloat(i) + 0.3) / 2)) + 1.5,
 				water: ((_elm_lang$core$Basics$sin(
 					_elm_lang$core$Basics$toFloat(i)) + 1.5) * 5) + (_elm_lang$core$Basics$sin(
 					_elm_lang$core$Basics$toFloat(i)) + 1.5),
