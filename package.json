@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "start": "ELM_DEBUGGER=true PUBLIC_URL=./ elm-app start",
+    "build": "PUBLIC_URL=./ elm-app build",
+    "test": "elm-app test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joakin/water-automata.git"
+  },
+  "author": "Joaquin Oltra <joaquin@chimeces.com> (http://chimeces.com)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/joakin/water-automata/issues"
+  },
+  "homepage": "https://github.com/joakin/water-automata#readme"
+}
