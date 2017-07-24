@@ -32,7 +32,8 @@ newCol total i =
         , vl = 0.0
         , vr = 0.0
         }
-            |> (\col -> { col | vl = height col * 0.001, vr = height col * 0.001 })
+            -- Initial potential energy
+            |> (\col -> { col | vl = height col * 0.4, vr = height col * 0.4 })
     else
         { earth = toFloat i * 100.0 / toFloat total
         , water = (toFloat (total - i) * 100.0 / toFloat (total * 2))
@@ -76,14 +77,20 @@ tickCol col left right =
         vTransfer =
             0.2
 
+        fromLeft =
+            left |> Maybe.map .vr |> Maybe.withDefault 0
+
+        fromRight =
+            right |> Maybe.map .vl |> Maybe.withDefault 0
+
         col_ =
             { col
-                | vl = col.vl * (1 - vTransfer) + (right |> Maybe.map .vl |> Maybe.withDefault 0) * vTransfer
-                , vr = col.vr * (1 - vTransfer) + (left |> Maybe.map .vr |> Maybe.withDefault 0) * vTransfer
+                | vl = col.vl * (1 - vTransfer) + fromRight * vTransfer
+                , vr = col.vr * (1 - vTransfer) + fromLeft * vTransfer
                 , water =
                     col.water
-                        + ((left |> Maybe.map .vr |> Maybe.withDefault 0) * vTransfer)
-                        + ((right |> Maybe.map .vl |> Maybe.withDefault 0) * vTransfer)
+                        + (fromLeft * vTransfer)
+                        + (fromRight * vTransfer)
                         - (col.vl * vTransfer)
                         - (col.vr * vTransfer)
             }
