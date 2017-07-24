@@ -27,7 +27,7 @@ type Msg
 newCol : Int -> Int -> Col
 newCol total i =
     if True then
-        { earth = ((sin <| toFloat i / 3) + 1.5) * 20 + ((sin <| toFloat i + 0.67) + 1.5) * 5
+        { earth = ((sin <| toFloat i / 12) + 1) * 10 + ((sin <| toFloat i / 3) + 1.5) * 10 + ((sin <| toFloat i + 0.67) + 1) * 2 + (sin <| toFloat i + 0.3) / 2 + 1.5
         , water = (((sin <| toFloat i) + 1.5) * 5) + ((sin <| toFloat i) + 1.5)
         , vl = 0.0
         , vr = 0.0
